@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class MessageService {
+
+    private static final MessageService instance = new MessageService();
 
     private StatisticsService service;
 
@@ -19,14 +20,18 @@ public class MessageService {
 
     List<Message> SavedMessages = new ArrayList<>();
 
-    public void send (Message message, String session)
-    {
+    public void send(Message message, String session) {
         message.setSender(session);
         message.setSendTime(LocalDateTime.now());
         SavedMessages.add(message);
         service.incMessagesCount();
     }
+
     public List<Message> getSavedMessages() {
         return SavedMessages;
+    }
+
+    public static MessageService getInstance() {
+        return instance;
     }
 }

@@ -13,11 +13,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet (name = "MessageServlet", urlPatterns = "/api/message")
+@WebServlet(name = "MessageServlet", urlPatterns = "/api/message")
 public class MessageServlet extends HttpServlet {
 
 
-    private MessageService service = new MessageService();
+    private MessageService service;
+
+    public MessageServlet() {
+        this.service = MessageService.getInstance();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +34,7 @@ public class MessageServlet extends HttpServlet {
 
         for (Message message : service.getSavedMessages()) {
 
-            if (message.getReceiver().equals((String)session.getAttribute("user"))) {
+            if (message.getReceiver().equals((String) session.getAttribute("user"))) {
                 writer.write("<p>" + "Отправлено: " + message.getSendTime() + "</p></br>");
                 writer.write("<p>" + "Отправитель:" + message.getSender() + "</p></br>");
                 writer.write("<p>" + "Получатель:" + message.getReceiver() + "</p></br>");
@@ -53,7 +57,7 @@ public class MessageServlet extends HttpServlet {
         Message message = new Message(receiver, text);
 
 
-        service.send(message, ((String)session.getAttribute("user")));
+        service.send(message, ((String) session.getAttribute("user")));
 
     }
 }

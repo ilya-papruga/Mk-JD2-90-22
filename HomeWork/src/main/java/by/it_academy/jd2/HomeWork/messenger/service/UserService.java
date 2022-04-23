@@ -23,9 +23,10 @@ public class UserService {
             LocalDateTime.now(),
             RoleType.ADMIN);
 
+
     public UserService() {
         this.service = StatisticsService.getInstance();
-        savedUsers.put(admin.getLogin(),admin);
+        savedUsers.put(admin.getLogin(), admin);
     }
 
     public void save(User user) {
@@ -35,14 +36,12 @@ public class UserService {
         service.incUsersCount();
     }
 
-    public boolean check(String login, String password)
-    {
+    public boolean check(String login, String password) {
 
         User checkUser = savedUsers.get(login);
         boolean loginStatus = false;
 
-        if (checkUser != null)
-        {
+        if (checkUser != null) {
             if (checkUser.getPassword().equals(password)) {
                 loginStatus = true;
             }

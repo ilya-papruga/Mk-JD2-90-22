@@ -12,18 +12,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet (name = "LoginServlet", urlPatterns = "/api/login")
+@WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
 
     private UserService service;
 
-    public LoginServlet(){
+    public LoginServlet() {
         this.service = UserService.getInstance();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 
 
         req.setCharacterEncoding("UTF-8");
@@ -36,16 +35,13 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        if (service.check(login,password))
-        {
+        if (service.check(login, password)) {
             session.setAttribute("user", login);
-        }
-
-        else {
+        } else {
             writer.write("Ошибка ввода логина/пароля");
         }
 
-        writer.write((String)session.getAttribute("user"));
+        // writer.write((String) session.getAttribute("user"));
 
 
     }

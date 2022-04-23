@@ -10,13 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
-@WebServlet(name = "StatisticsServlet", urlPatterns = "/api/admin/statistics")
-public class StatisticsServlet extends HttpServlet {
+@WebServlet(name = "StatisticsUIServlet", urlPatterns = "/ui/admin/statistics")
+public class StatisticsUIServlet extends HttpServlet {
 
     private StatisticsService service;
 
-    public StatisticsServlet() {
+    public StatisticsUIServlet() {
         this.service = StatisticsService.getInstance();
     }
 
@@ -25,11 +24,11 @@ public class StatisticsServlet extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("html/text; charset=utf-8");
-        PrintWriter writer = resp.getWriter();
 
-        writer.write("<p>" + "Количество активных сессий: " + service.getSessionsCount() + "</p></br>");
-        writer.write("<p>" + "Количество пользвателей: " + service.getUsersCount() + "</p></br>");
-        writer.write("<p>" + "Количество отправленных сообщений: " + service.getMesagesCount() + "</p></br>");
+        req.setAttribute("sessions", service.getSessionsCount());
+        req.setAttribute("users", service.getUsersCount());
+        req.setAttribute("messages", service.getMesagesCount());
 
+        req.getRequestDispatcher("/ui/admin/Statistics.jsp").forward(req, resp);
     }
 }

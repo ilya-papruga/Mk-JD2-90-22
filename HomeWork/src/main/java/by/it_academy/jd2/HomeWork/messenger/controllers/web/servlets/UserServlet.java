@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
-@WebServlet(name="UserServlet", urlPatterns = "/api/user")
+@WebServlet(name = "UserServlet", urlPatterns = "/api/user")
 public class UserServlet extends HttpServlet {
 
     private UserService service;
 
-    public UserServlet(){
+    public UserServlet() {
         this.service = UserService.getInstance();
     }
 
@@ -43,31 +43,14 @@ public class UserServlet extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("html/text; charset=utf-8");
-
         PrintWriter writer = resp.getWriter();
 
-       // List<String> logins = new ArrayList<>(service.getSavedUsers().keySet());
-
-       // writer.write(service.getSavedUsers().keySet().toString());
-/*
-        for (SavedUser savedUser : service.getSavedUsers()) {
-
-            writer.write("<p>" + savedUser.getUser().getLogin() + "</p></br>");
-            writer.write("<p>" + savedUser.getUser().getPassword() + "</p></br>");
-            writer.write("<p>" + savedUser.getUser().getFullName() + "</p></br>");
-            writer.write("<p>" + savedUser.getUser().getBirthDate() + "</p></br>");
-            writer.write("<p>" + savedUser.getDtCreate() + "</p></br>");
-            writer.write("<p>" + savedUser.getType() + "</p></br>");
-        }
-
- */
-
-        for (Map.Entry<String,User> entry : service.getSavedUsers().entrySet()) {
+        // Вывод юзеров
+        /* for (Map.Entry<String,User> entry : service.getSavedUsers().entrySet()) {
             writer.write("Key: " + entry.getKey() + "</br>" +
                     " Value: " + entry.getValue().toString() + "</br>" + "</br>");
         }
-
-
+         */
 
     }
 }

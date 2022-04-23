@@ -64,6 +64,7 @@ public class User {
     public String getBirthDate() {
         return birthDate;
     }
+
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
