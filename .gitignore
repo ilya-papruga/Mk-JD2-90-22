@@ -1,0 +1,6 @@
+*pass*
+*.class
+
+.idea/
+out/
+*.iml
