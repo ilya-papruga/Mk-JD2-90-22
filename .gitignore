@@ -1,6 +1,6 @@
 *pass*
 *.class
 
-.idea/
+*.idea*
 out/
 *.iml
