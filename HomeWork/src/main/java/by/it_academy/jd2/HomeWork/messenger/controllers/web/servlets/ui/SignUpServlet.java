@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets;
+package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets.ui;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SendMessageServlet", urlPatterns = "/ui/user/message")
-public class SendMessageServlet extends HttpServlet {
+
+@WebServlet(name = "SignUpServlet", urlPatterns = "/ui/SignUp")
+public class SignUpServlet extends HttpServlet {
 
 
     @Override
@@ -17,7 +18,7 @@ public class SendMessageServlet extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("html/text; charset=utf-8");
-        req.getRequestDispatcher("/ui/user/SendMessage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/ui/SignUp.jsp").forward(req, resp);
 
 
     }

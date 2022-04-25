@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets;
+package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets.api;
 
 
 import by.it_academy.jd2.HomeWork.messenger.core.dto.Message;

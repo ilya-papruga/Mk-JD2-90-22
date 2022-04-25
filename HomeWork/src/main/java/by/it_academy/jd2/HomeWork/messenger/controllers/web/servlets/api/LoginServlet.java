@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets;
+package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets.api;
 
 import by.it_academy.jd2.HomeWork.messenger.service.UserService;
 
@@ -33,12 +33,14 @@ public class LoginServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        HttpSession session = req.getSession();
 
         if (service.check(login, password)) {
+            HttpSession session = req.getSession();
             session.setAttribute("user", login);
+            resp.sendRedirect(req.getContextPath() + "/ui");
         } else {
             writer.write("Ошибка ввода логина/пароля");
+            resp.sendRedirect(req.getContextPath() + "/ui/SignIn?error=Invalid login/password");
         }
 
         // writer.write((String) session.getAttribute("user"));

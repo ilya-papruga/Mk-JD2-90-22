@@ -8,18 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserService {
-
-
     private static final UserService instance = new UserService();
     private Map<String, User> savedUsers = new HashMap<>();
     private StatisticsService service;
 
 
     User admin = new User(
-            "ilya.papruga",
-            "123567",
-            "Ilya Papruga Vitalevich",
-            "15.02.1993",
+            "admin",
+            "admin",
+            "Admin Adminov Adminovich",
+            "00.00.0000",
             LocalDateTime.now(),
             RoleType.ADMIN);
 

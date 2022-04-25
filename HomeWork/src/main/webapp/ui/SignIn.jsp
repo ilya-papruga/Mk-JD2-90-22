@@ -9,6 +9,7 @@
 </head>
 
 <body>
+        <p><font size="5" color="red">${param.error}</font></p>
        Введите пожалуйста ваши данные для авторизации
        <form action="${pageContext.request.contextPath}/api/login" method="POST">
        <p>Логин: <input type="text" name ="login" /><p>

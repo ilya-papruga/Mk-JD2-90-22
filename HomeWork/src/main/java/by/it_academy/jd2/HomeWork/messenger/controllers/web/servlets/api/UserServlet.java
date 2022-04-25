@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets;
+package by.it_academy.jd2.HomeWork.messenger.controllers.web.servlets.api;
 
 import by.it_academy.jd2.HomeWork.messenger.core.dto.User;
 import by.it_academy.jd2.HomeWork.messenger.service.UserService;
@@ -16,7 +16,6 @@ import java.util.Map;
 public class UserServlet extends HttpServlet {
 
     private UserService service;
-
     public UserServlet() {
         this.service = UserService.getInstance();
     }
