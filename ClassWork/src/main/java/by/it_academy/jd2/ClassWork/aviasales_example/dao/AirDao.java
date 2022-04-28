@@ -1,37 +1,37 @@
-package by.it_academy.jd2.ClassWork.aviasales.dao;
-
-import by.it_academy.jd2.ClassWork.aviasales.dao.Airport;
+package by.it_academy.jd2.ClassWork.aviasales_example.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirportDao {
+public class AirDao {
 
 
-    public List<Airport> getAll() {
-        List<Airport> airports = new ArrayList<>();
+    public List<Air> getAll() {
+
+
+        List<Air> airs = new ArrayList<>();
 
         try (Connection connection = getConnection();
 
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
                      "SELECT airport_code, airport_name, city, coordinates, timezone\n" +
-                              "\tFROM bookings.airports ORDER BY city\n"
+                             "\tFROM bookings.airports\n"
 
              );
         ) {
             while (resultSet.next()) {
-                airports.add(map(resultSet));
+                airs.add(map(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
 
         }
-        return airports;
+        return airs;
     }
 
-    public Airport get(String code) {
+    public Air get(String code) {
 
 
         try (Connection connection = getConnection();
@@ -65,8 +65,8 @@ public class AirportDao {
     }
 
 
-    private Airport map(ResultSet rs) throws SQLException {
-        return new Airport(
+    private Air map(ResultSet rs) throws SQLException {
+        return new Air(
                 rs.getString("airport_code"),
                 rs.getString("airport_name"),
                 rs.getString("city"),
