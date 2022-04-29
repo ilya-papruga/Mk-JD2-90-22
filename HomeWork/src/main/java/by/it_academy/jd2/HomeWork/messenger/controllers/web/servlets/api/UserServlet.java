@@ -34,7 +34,16 @@ public class UserServlet extends HttpServlet {
 
         User user = new User(login, password, fullName, birthDate);
 
-        service.save(user);
+        if (service.checkSignUp(user)) {
+            service.save(user);
+            resp.sendRedirect(req.getContextPath() + "/ui?success=Registration completed successfully");
+        }
+        else
+        {
+            resp.sendRedirect(req.getContextPath() +
+                    "/ui/SignUp?error=The selected login is already registered." +
+                    " Choose a different login.");
+        }
     }
 
     @Override

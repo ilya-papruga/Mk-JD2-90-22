@@ -34,7 +34,7 @@ public class UserService {
         service.incUsersCount();
     }
 
-    public boolean check(String login, String password) {
+    public boolean checkSignIn(String login, String password) {
 
         User checkUser = savedUsers.get(login);
         boolean loginStatus = false;
@@ -46,6 +46,16 @@ public class UserService {
         }
 
         return loginStatus;
+
+    }
+
+    public boolean checkSignUp(User user) {
+
+        if ((savedUsers.get(user.getLogin()) == null)) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 

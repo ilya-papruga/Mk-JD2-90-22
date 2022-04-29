@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
 
-        if (service.check(login, password)) {
+        if (service.checkSignIn(login, password)) {
             HttpSession session = req.getSession();
             session.setAttribute("user", login);
             resp.sendRedirect(req.getContextPath() + "/ui");
