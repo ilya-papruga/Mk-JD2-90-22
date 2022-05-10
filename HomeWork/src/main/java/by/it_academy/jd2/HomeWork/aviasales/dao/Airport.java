@@ -1,9 +1,9 @@
-package by.it_academy.jd2.ClassWork.aviasales_example.dao;
+package by.it_academy.jd2.HomeWork.aviasales.dao;
 
-public class Air {
+public class Airport {
 
     private String airport_code;
-    private String aiport_name;
+    private String airport_name;
     private String city;
     private String coordinates;
     private String timezone;
@@ -12,19 +12,19 @@ public class Air {
     public String toString() {
         return "Airport{" +
                 "airport_code='" + airport_code + '\'' +
-                ", aiport_name='" + aiport_name + '\'' +
+                ", airport_name='" + airport_name + '\'' +
                 ", city='" + city + '\'' +
                 ", coordinates='" + coordinates + '\'' +
                 ", timezone='" + timezone + '\'' +
                 '}';
     }
 
-    public Air() {
+    public Airport() {
     }
 
-    public Air(String airport_code, String aiport_name, String city, String coordinates, String timezone) {
+    public Airport(String airport_code, String airport_name, String city, String coordinates, String timezone) {
         this.airport_code = airport_code;
-        this.aiport_name = aiport_name;
+        this.airport_name = airport_name;
         this.city = city;
         this.coordinates = coordinates;
         this.timezone = timezone;
@@ -34,8 +34,8 @@ public class Air {
         return airport_code;
     }
 
-    public String getAiport_name() {
-        return aiport_name;
+    public String getAirport_name() {
+        return airport_name;
     }
 
     public String getCity() {
@@ -49,4 +49,5 @@ public class Air {
     public String getTimezone() {
         return timezone;
     }
+
 }

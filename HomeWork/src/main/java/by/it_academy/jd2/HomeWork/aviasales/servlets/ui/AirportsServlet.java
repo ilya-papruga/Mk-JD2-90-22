@@ -1,8 +1,8 @@
-package by.it_academy.jd2.ClassWork.aviasales.servlets;
+package by.it_academy.jd2.HomeWork.aviasales.servlets.ui;
 
 
-import by.it_academy.jd2.ClassWork.aviasales.dao.Airport;
-import by.it_academy.jd2.ClassWork.aviasales.dao.AirportDao;
+import by.it_academy.jd2.HomeWork.aviasales.dao.Airport;
+import by.it_academy.jd2.HomeWork.aviasales.dao.AirportDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet (name = "Airports.servlet", urlPatterns = "/api/airports")
+@WebServlet(name = "AirportsServlet", urlPatterns = "/airports")
 public class AirportsServlet extends HttpServlet {
 
     @Override
@@ -32,13 +31,12 @@ public class AirportsServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=utf-8");
 
-        PrintWriter writer = resp.getWriter();
 
-        for (Airport airport : airports) {
+        req.setAttribute("allAirports", airports);
 
-            writer.write("<p>" + String.valueOf(airport) + "</p></br>");
-
-        }
+        req.getRequestDispatcher("airports.jsp").forward(req, resp);
 
     }
+
+
 }
