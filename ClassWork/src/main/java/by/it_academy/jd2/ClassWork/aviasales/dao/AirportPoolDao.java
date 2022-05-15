@@ -11,30 +11,15 @@ import java.util.List;
 
 public class AirportPoolDao implements IAirportDao {
 
-    private DataSource ds;
+    private static final AirportPoolDao instance = new AirportPoolDao();
 
-    public AirportPoolDao(){
-
-        ComboPooledDataSource pool = new ComboPooledDataSource();
-        try {
-            pool.setDriverClass("org.postgresql.Driver");
-        } catch (PropertyVetoException e) {
-            throw new RuntimeException("Проверь имя драйвера!!!!!", e);
-        }
-
-        pool.setJdbcUrl("jdbc:postgresql://localhost:5432/demo");
-        pool.setUser("postgres");
-        pool.setPassword("postgres");
-
-        this.ds = pool;
+    public AirportPoolDao() {
     }
-
-
 
     public List<Airport> getAll() {
         List<Airport> airports = new ArrayList<>();
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionFactory.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
                      "SELECT airport_code, airport_name, city, coordinates, timezone\n" +
@@ -55,7 +40,7 @@ public class AirportPoolDao implements IAirportDao {
     public Airport get(String code) {
 
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionFactory.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
                      "SELECT airport_code, airport_name, city, coordinates, timezone\n" +
@@ -74,11 +59,6 @@ public class AirportPoolDao implements IAirportDao {
         return null;
     }
 
-    private Connection getConnection() throws SQLException {
-
-        return this.ds.getConnection();
-    }
-
 
     private Airport map(ResultSet rs) throws SQLException {
         return new Airport(
@@ -90,9 +70,14 @@ public class AirportPoolDao implements IAirportDao {
         );
     }
 
-
     @Override
-    public void close() throws Exception {
-        DataSources.destroy(this.ds);
+
+    public  void close() throws Exception {
+        ConnectionFactory.close();
     }
+
+    public static AirportPoolDao getInstance() {
+        return instance;
+    }
+
 }
