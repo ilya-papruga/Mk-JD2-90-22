@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%>
 
 <%@ taglib prefix = "c"  uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
+<html xmlns:c="">
 <head>
     <title>Полёты</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,28 +15,45 @@ pageEncoding="UTF-8"%>
 
     <form action="${pageContext.request.contextPath}/aviasales/flights" method="GET">
         <select name="arrivalAirport">
+            <option value="">Выберите аэропорт вылета</option>
             <c:forEach items="${requestScope.airports}" var="item">
                 <option
-                    <c:if test="${item.code eq requestScope.arrivalAirport}">
-                        selected
-                    </c:if>
-                    value="${item.code}">${item.code} - ${item.name} </option>
+                <c:if test="${item.code eq requestScope.arrivalAirport}">
+                    selected
+                </c:if>
+                value="${item.code}">${item.code} - ${item.name} </option>
             </c:forEach>
         </select>
 
         <select name="departureAirport">
+            <option value="">Выберите аэропорт прилёта</option>
             <c:forEach items="${requestScope.airports}" var="item">
                 <option
-                    <c:if test="${item.code eq requestScope.departureAirport}">
-                        selected
-                    </c:if>
-                    value="${item.code}">${item.code} - ${item.name} </option>
+                <c:if test="${item.code eq requestScope.departureAirport}">
+                    selected
+                </c:if>
+                value="${item.code}">${item.code} - ${item.name} </option>
             </c:forEach>
         </select>
+
         <input type="submit" value="Отправить"/>
+
+        <div>
+
+            <c:forEach var="i" begin="1" end="${requestScope.maxPage}">
+                <c:if test="${
+                 (requestScope.maxPage <= 5) ||
+                 (requestScope.page == 1 &&  (i == (requestScope.page + 1) || i == (requestScope.page + 2))) ||
+                 (requestScope.page == requestScope.maxPage && (i == (requestScope.page - 1) || i == (requestScope.page - 2))) ||
+                 (i == (requestScope.page -1) || i == requestScope.page || i == (requestScope.page + 1)) ||
+                 (i == requestScope.maxPage) ||
+                 (i == 1)
+                 }">
+                <input name="page" type="submit" value="${i}">
+                </c:if>
+            </c:forEach>
+        </div>
     </form>
-
-
 </div>
 
 

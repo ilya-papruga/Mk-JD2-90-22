@@ -5,6 +5,7 @@ import by.it_academy.jd2.ClassWork.aviasales.dao.FlightsFilter;
 import by.it_academy.jd2.ClassWork.aviasales.dao.Pageable;
 import by.it_academy.jd2.ClassWork.aviasales.service.AirportsService;
 import by.it_academy.jd2.ClassWork.aviasales.service.FlightsService;
+import by.it_academy.jd2.ClassWork.aviasales.servlets.utils.PaginationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,13 +28,26 @@ public class FlightsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String arrivalAirport = req.getParameter("arrivalAirport");
-        String departureAirport = req.getParameter("departureAirport");
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=utf-8");
 
-        FlightsFilter filter = FlightsFilter.Builder.create()
-                .setArrivalAirport(arrivalAirport)
-                .setDepartureAirport(departureAirport)
-                .build();
+        FlightsFilter.Builder builder = FlightsFilter.Builder.create();
+
+        String arrivalAirportRaw = req.getParameter("arrivalAirport");
+
+        if (arrivalAirportRaw != null && !arrivalAirportRaw.isEmpty()) {
+
+            builder.setArrivalAirport(arrivalAirportRaw);
+        }
+
+        String departureAirportRaw = req.getParameter("departureAirport");
+
+        if (departureAirportRaw != null && !departureAirportRaw.isEmpty()) {
+
+            builder.setDepartureAirport(departureAirportRaw);
+        }
+
+        FlightsFilter filter = builder.build();
 
         String pageRaw = req.getParameter("page");
         String sizeRaw = req.getParameter("size");
@@ -41,16 +55,27 @@ public class FlightsServlet extends HttpServlet {
         int page = 1;
         int size = 50;
 
-        if (pageRaw != null && !pageRaw.isEmpty()){
+        if (pageRaw != null && !pageRaw.isEmpty()) {
             page = Integer.parseInt(pageRaw);
         }
 
-        if (sizeRaw != null && !sizeRaw.isEmpty()){
+        if (sizeRaw != null && !sizeRaw.isEmpty()) {
             size = Integer.parseInt(sizeRaw);
         }
 
+        Pageable pageable = Pageable.of(size, page);
+
+        long totalElements = this.flightsService.count(filter);
+
+        req.setAttribute("arrivalAirport", filter.getArrivalAirport());
+        req.setAttribute("departureAirport", filter.getDepartureAirport());
+        req.setAttribute("totalElements", totalElements);
+        req.setAttribute("page", pageable.getPage());
+        req.setAttribute("size", pageable.getSize());
+        req.setAttribute("maxPage", PaginationUtils.maxPageCount(totalElements, pageable));
+
         req.setAttribute("airports", this.airportsService.getAll());
-        req.setAttribute("flights", this.flightsService.list(filter, Pageable.of(size,page)));
+        req.setAttribute("flights", this.flightsService.list(filter, Pageable.of(size, page)));
 
         req.getRequestDispatcher("/jsp/aviasales/flights.jsp").forward(req, resp);
     }

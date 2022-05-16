@@ -13,8 +13,10 @@ public interface IFlightsDao extends AutoCloseable {
 
 
     /**
-     * Получить все полёты
-     * @return
+     * Получить полёты соовтествующие фильтрам
+     * @param filter фильтры применяемые к запросау
+     * @param pageable настройки пагинации
+     * @return получившийся список с фильтрами и пагинацией
      */
     List<Flights> list(FlightsFilter filter, Pageable pageable);
 
@@ -26,5 +28,12 @@ public interface IFlightsDao extends AutoCloseable {
      */
 
     Flights get (Long id);
+
+    /**
+     * Получить количество записей соответствующих фильтрам
+     * @param filter фильтры применяемые к запросу
+     * @return количество записей
+     */
+    long count(FlightsFilter filter);
 
 }

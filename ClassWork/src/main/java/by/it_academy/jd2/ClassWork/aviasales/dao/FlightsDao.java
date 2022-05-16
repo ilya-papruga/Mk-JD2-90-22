@@ -1,6 +1,7 @@
 package by.it_academy.jd2.ClassWork.aviasales.dao;
 
 import java.sql.*;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class FlightsDao implements IFlightsDao {
             "FROM\n" +
             "    bookings.flights_v\n";
 
+
+    private final static String COUNT_SQL = "SELECT count(flight_id) FROM bookings.flights_v";
+
     @Override
     public List<Flights> getAll() {
 
@@ -52,6 +56,102 @@ public class FlightsDao implements IFlightsDao {
         List<Flights> flights = new ArrayList<>();
 
         List<Object> params = new ArrayList<>();
+
+        String where = where(filter, params);
+
+        String page = "";
+
+        if(pageable.getSize() > 0){
+             page += " LIMIT " + pageable.getSize();
+        }
+
+        if(pageable.getPage() > 0){
+
+            int offset = pageable.getSize() * (pageable.getPage() - 1);
+
+            page += " OFFSET " + offset;
+        }
+
+
+
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_SQL + where + page);
+        ) {
+            int index = 0;
+            for (Object param : params) {
+                statement.setObject(++index, param);
+
+            }
+            try(ResultSet resultSet = statement.executeQuery();){
+                while (resultSet.next()) {
+                    flights.add (map(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+
+        return flights;
+    }
+
+    @Override
+    public Flights get(Long id) {
+
+        if (id == null){
+            throw new IllegalArgumentException("ID не задан");
+        }
+
+
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_SQL + "WHERE flight_id = ?;");
+        ) {
+            statement.setLong(1, id);
+            try(ResultSet resultSet = statement.executeQuery();){
+                while (resultSet.next()) {
+                    return map(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+        return null;
+    }
+
+    @Override
+    public long count(FlightsFilter filter) {
+        if (filter == null){
+            filter = FlightsFilter.Builder.create().build();
+        }
+
+        List<Object> params = new ArrayList<>();
+
+        String where = where(filter, params);
+
+
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_SQL + where);
+        ) {
+            int index = 0;
+            for (Object param : params) {
+                statement.setObject(++index, param);
+
+            }
+            try(ResultSet resultSet = statement.executeQuery();){
+                while (resultSet.next()) {
+                    return resultSet.getLong(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+
+        return 0;
+    }
+
+    private String where (FlightsFilter filter, List<Object> params){
 
         String where = "";
 
@@ -91,67 +191,8 @@ public class FlightsDao implements IFlightsDao {
             where = " WHERE " + where;
         }
 
-        String page = "";
+        return where;
 
-
-        if(pageable.getSize() > 0){
-             page += " LIMIT " + pageable.getSize();
-        }
-
-        if(pageable.getPage() > 0){
-
-            int offset = pageable.getSize() * (pageable.getPage() - 1);
-
-            page += " OFFSET " + offset;
-        }
-
-
-
-        try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_SQL + where + page);
-        ) {
-            int index = 0;
-            for (Object param : params) {
-                statement.setObject(++index, param);
-
-            }
-            try(ResultSet resultSet = statement.executeQuery();){
-                while (resultSet.next()) {
-                    flights.add (map(resultSet));
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        }
-
-
-
-        return flights;
-    }
-
-    @Override
-    public Flights get(Long id) {
-
-        if (id == null){
-            throw new IllegalArgumentException("ID не задан");
-        }
-
-
-        try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_SQL + "WHERE flight_id = ?;");
-        ) {
-            statement.setLong(1, id);
-            try(ResultSet resultSet = statement.executeQuery();){
-                while (resultSet.next()) {
-                    return map(resultSet);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        }
-        return null;
     }
 
     private Flights map(ResultSet rs) throws SQLException {
@@ -159,9 +200,9 @@ public class FlightsDao implements IFlightsDao {
         return Flights.Builder.create()
                 .setFlightId(rs.getLong("flight_id"))
                 .setFlightNo(rs.getString("flight_no"))
-//                .setScheduledDeparture(rs.getString("scheduled_departure"))
+                .setScheduledDeparture(rs.getObject("scheduled_departure", OffsetDateTime.class))
 //                .setScheduledDepartureLocal(rs.getString("scheduled_departure_local"))
-//                .setScheduledArrival(rs.getString("scheduled_arrival"))
+                .setScheduledArrival(rs.getObject("scheduled_arrival", OffsetDateTime.class))
 //                .setScheduledArrivalLocal(rs.getString("scheduled_arrival_local"))
 //                .setScheduledDuration(rs.getString("scheduled_duration"))
                 .setDepartureAirport(rs.getString("departure_airport"))
@@ -172,9 +213,9 @@ public class FlightsDao implements IFlightsDao {
                 .setArrivalCity(rs.getString("arrival_city"))
                 .setStatus(rs.getString("status"))
                 .setAircraftCode(rs.getString("aircraft_code"))
-//                .setActualDeparture(rs.getString("actual_departure"))
+                .setActualDeparture(rs.getObject("actual_departure", OffsetDateTime.class))
 //                .setActualDepartureLocal(rs.getString("actual_departure_local"))
-//                .setActualArrival(rs.getString("actual_arrival"))
+                .setActualArrival(rs.getObject("actual_arrival", OffsetDateTime.class))
 //                .setActualArrivalLocal(rs.getString("actual_arrival_local"))
 //                .setActualDuration(rs.getString("actual_duration"))
                 .build();

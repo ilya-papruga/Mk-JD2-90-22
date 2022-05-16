@@ -19,7 +19,13 @@ public class FlightsService {
         return this.dao.list(filter,pageable);
     }
 
+
+    public long count (FlightsFilter filter){
+        return this.dao.count(filter);
+    }
+
     public static FlightsService getInstance() {
         return instance;
     }
+
 }
