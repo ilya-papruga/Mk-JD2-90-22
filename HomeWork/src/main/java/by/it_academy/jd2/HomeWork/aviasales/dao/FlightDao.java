@@ -73,10 +73,26 @@ public class FlightDao implements AutoCloseable {
 
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
-                     "SELECT flight_id, flight_no, scheduled_departure, scheduled_departure_local, scheduled_arrival, scheduled_arrival_local, scheduled_duration, departure_airport, departure_airport_name, departure_city, arrival_airport, arrival_airport_name, arrival_city, status, aircraft_code\n" +
-                             "\tFROM bookings.flights_v" +
-                             "WHERE departure_airport_name = '" + depAirport + "';"
-
+                     "SELECT\n" +
+                             "    flight_id,\n" +
+                             "    flight_no,\n" +
+                             "    scheduled_departure,\n" +
+                             "    scheduled_departure_local,\n" +
+                             "    scheduled_arrival,\n" +
+                             "    scheduled_arrival_local,\n" +
+                             "    scheduled_duration,\n" +
+                             "    departure_airport,\n" +
+                             "    departure_airport_name,\n" +
+                             "    departure_city,\n" +
+                             "    arrival_airport,\n" +
+                             "    arrival_airport_name,\n" +
+                             "    arrival_city,\n" +
+                             "    status,\n" +
+                             "    aircraft_code\n" +
+                             "FROM\n" +
+                             "    bookings.flights_v\n" +
+                             "WHERE\n" +
+                             "    departure_airport_name = '" + depAirport + "';"
              );
         ) {
             while (resultSet.next()) {

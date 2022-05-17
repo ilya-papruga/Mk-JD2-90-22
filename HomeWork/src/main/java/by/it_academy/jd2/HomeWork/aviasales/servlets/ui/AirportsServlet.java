@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "AirportsServlet", urlPatterns = "/airports")
+@WebServlet(name = "AirportsServlet", urlPatterns = "/aviasales/airports")
 public class AirportsServlet extends HttpServlet {
 
     @Override
@@ -34,7 +34,7 @@ public class AirportsServlet extends HttpServlet {
 
         req.setAttribute("allAirports", airports);
 
-        req.getRequestDispatcher("airports.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/aviasales/airports.jsp").forward(req, resp);
 
     }
 

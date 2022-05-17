@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "FlightsServlet", urlPatterns = "/flights")
+@WebServlet(name = "FlightsServlet", urlPatterns = "/aviasales/flights")
 public class FlightsServlet extends HttpServlet {
 
     private FlightsService service;
@@ -53,7 +53,7 @@ public class FlightsServlet extends HttpServlet {
 
         req.setAttribute("allAirports", airports);
 
-        req.getRequestDispatcher("flights.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/aviasales/flights.jsp").forward(req, resp);
 
     }
 
@@ -61,7 +61,7 @@ public class FlightsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
-        resp.setContentType("html/text; charset=utf-8");
+        resp.setContentType("text/html; charset=utf-8");
 
         String scheduled_departure_local = req.getParameter("scheduled_departure_local");
         String departure_airport_name = req.getParameter("departure_airport_name");
