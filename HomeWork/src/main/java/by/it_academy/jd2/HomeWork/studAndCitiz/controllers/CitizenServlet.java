@@ -1,9 +1,11 @@
-package by.it_academy.jd2.HomeWork.studAndSitiz.controllers;
+package by.it_academy.jd2.HomeWork.studAndCitiz.controllers;
 
-import by.it_academy.jd2.HomeWork.studAndSitiz.dto.Student;
-import by.it_academy.jd2.HomeWork.studAndSitiz.service.StudentService;
+import by.it_academy.jd2.HomeWork.studAndCitiz.dto.Citizen;
+import by.it_academy.jd2.HomeWork.studAndCitiz.service.CitizenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,18 +16,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet(name = "StudentsServlet", urlPatterns = "/students")
+@WebServlet(name = "CitizenServlet", urlPatterns = "/citizens")
 
-public class StudentsServlet extends HttpServlet {
+public class CitizenServlet extends HttpServlet {
 
-    private final StudentService studentService;
+    private final CitizenService citizenService;
 
     private ObjectMapper mapper;
 
-    public StudentsServlet() {
-        this.studentService = StudentService.getInstance();
+    public CitizenServlet() {
+        this.citizenService = CitizenService.getInstance();
         this.mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE);
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
 
     }
 
@@ -37,7 +41,7 @@ public class StudentsServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        String json = mapper.writeValueAsString(studentService.getStudentList());
+        String json = mapper.writeValueAsString(citizenService.getCitizenList());
 
         writer.write(json);
     }
@@ -47,8 +51,8 @@ public class StudentsServlet extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
 
-        Student student = mapper.readValue(req.getInputStream(), Student.class);
+        Citizen citizen = mapper.readValue(req.getInputStream(), Citizen.class);
 
-        studentService.add(student);
+        citizenService.add(citizen);
     }
 }

@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.studAndSitiz.dto;
+package by.it_academy.jd2.HomeWork.studAndCitiz.dto;
 
 import java.time.LocalDate;
 import java.util.Objects;

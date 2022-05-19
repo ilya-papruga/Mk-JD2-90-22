@@ -1,8 +1,8 @@
-package by.it_academy.jd2.HomeWork.studAndSitiz.service;
+package by.it_academy.jd2.HomeWork.studAndCitiz.service;
 
 
-import by.it_academy.jd2.HomeWork.studAndSitiz.dto.Citizen;
-import by.it_academy.jd2.HomeWork.studAndSitiz.dto.Passport;
+import by.it_academy.jd2.HomeWork.studAndCitiz.dto.Citizen;
+import by.it_academy.jd2.HomeWork.studAndCitiz.dto.Passport;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

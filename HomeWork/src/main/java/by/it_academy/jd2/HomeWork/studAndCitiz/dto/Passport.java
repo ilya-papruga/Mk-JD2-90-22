@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.studAndSitiz.dto;
+package by.it_academy.jd2.HomeWork.studAndCitiz.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
