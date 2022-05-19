@@ -1,13 +1,14 @@
 package by.it_academy.jd2.ClassWork.vote.core.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class VoteDto {
 
     private int artist;
     private int[] genres;
     private String about;
 
-
-    public VoteDto(int artist, int[] genres, String about) {
+    public VoteDto(@JsonProperty("artist")int artist, @JsonProperty("genres") int[] genres, @JsonProperty("about") String about) {
         this.artist = artist;
         this.genres = genres;
         this.about = about;

@@ -1,7 +1,7 @@
 package by.it_academy.jd2.HomeWork.aviasales.main;
 
-import by.it_academy.jd2.HomeWork.aviasales.dao.Flight;
-import by.it_academy.jd2.HomeWork.aviasales.dao.FlightDao;
+import by.it_academy.jd2.HomeWork.aviasales.dao.Flights;
+import by.it_academy.jd2.HomeWork.aviasales.dao.FlightsDao;
 import by.it_academy.jd2.HomeWork.aviasales.service.FlightsService;
 
 import java.util.List;
@@ -17,12 +17,12 @@ public class MainTest {
     public static void main(String[] args) {
 
 
-        FlightDao flightDao = new FlightDao();
+        FlightsDao flightDao = new FlightsDao();
 
-        List<Flight> flights = flightDao.getAll();
+        List<Flights> flights = flightDao.getAll();
 
-        Flight flightTest = new Flight("123", "Домодедово", "123", "arrAirport");
-        service.save(flightTest);
+      //  Flights flightsTest = new Flights("123", "Домодедово", "123", "arrAirport");
+      //  service.save(flightsTest);
 
 
         /*
@@ -44,7 +44,7 @@ public class MainTest {
 
  */
 
-        System.out.println(service.getSavedFlight());
+      //  System.out.println(service.getSavedFlight());
 
     }
 

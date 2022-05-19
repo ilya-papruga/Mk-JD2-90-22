@@ -1,4 +1,4 @@
-package by.it_academy.jd2.ClassWork.vote.servlets;
+package by.it_academy.jd2.ClassWork.vote.controllers.html;
 
 import by.it_academy.jd2.ClassWork.vote.core.dto.VoteDto;
 import by.it_academy.jd2.ClassWork.vote.service.VoteService;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
-@WebServlet(name = "VoteServlet", urlPatterns = "/vote")
+@WebServlet(name = "VoteServlet", urlPatterns = "/html/vote")
 
 public class VoteServlet extends HttpServlet {
 

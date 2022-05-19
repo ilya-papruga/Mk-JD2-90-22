@@ -18,30 +18,58 @@ pageEncoding="UTF-8"%>
 <h1>Поиск рейсов</h1>
 
 
-<form action="${pageContext.request.contextPath}/aviasales/flights" method="POST">
+<form action="${pageContext.request.contextPath}/aviasales/flights" method="GET">
     <p>Дата вылета: <input type="date" name="scheduled_departure_local" max="2017-09-14" min="2016-08-15"></p>
 
-    <select name="departure_airport_name">
+    <select name="departureAirport">
         <option>Аэропорт вылета</option>
-        <c:forEach items="${requestScope.allAirports}" var="airport">
-            <option value="${airport.airport_name}"> ${airport.airport_code} - ${airport.airport_name}  </option>
+        <c:forEach items="${requestScope.airports}" var="airport">
+            <option
+            <c:if test="${airport.code eq requestScope.departureAirport}">
+                selected
+            </c:if>
+            value="${item.code}">${airport.code} - ${airport.name} </option>
         </c:forEach>
     </select>
 
-    <br></br>
+
+
+    <br/>
 
     <p>Дата Прилёта: <input type="date" name="scheduled_arrival_local" max="2017-09-15" min="2016-08-15"></p>
 
-    <select name="arrival_airport_name">
+    <select name="arrivalAirport">
         <option>Аэропорт прилёта</option>
-        <c:forEach items="${requestScope.allAirports}" var="airport">
-            <option value="${airport.airport_name}"> ${airport.airport_code} - ${airport.airport_name}  </option>
+        <c:forEach items="${requestScope.airports}" var="airport">
+            <option
+            <c:if test="${airport.code eq requestScope.arrivalAirport}">
+                selected
+            </c:if>
+            value="${item.code}">${airport.code} - ${airport.name} </option>
         </c:forEach>
     </select>
 
-    <br></br>
+    <br/>
 
     <input type="submit" value="Поиск"></p>
+
+
+    <div>
+
+        <c:forEach var="i" begin="1" end="${requestScope.maxPage}">
+            <c:if test="${
+                 (requestScope.maxPage <= 5) ||
+                 (requestScope.page == 1 &&  (i == (requestScope.page + 1) || i == (requestScope.page + 2))) ||
+                 (requestScope.page == requestScope.maxPage && (i == (requestScope.page - 1) || i == (requestScope.page - 2))) ||
+                 (i == (requestScope.page -1) || i == requestScope.page || i == (requestScope.page + 1)) ||
+                 (i == requestScope.maxPage) ||
+                 (i == 1)
+                 }">
+                <input name="page" type="submit" value="${i}">
+            </c:if>
+        </c:forEach>
+    </div>
+
 </form>
 
 <br></br>
@@ -49,41 +77,51 @@ pageEncoding="UTF-8"%>
 
 <table class="table table-striped">
     <tr>
-        <th>flight_id</th>
-        <th>flight_no</th>
-        <th>scheduled_departure</th>
-        <th>scheduled_departure_local</th>
-        <th>scheduled_arrival</th>
-        <th>scheduled_arrival_local</th>
-        <th>scheduled_duration</th>
-        <th>departure_airport</th>
-        <th>departure_airport_name</th>
-        <th>departure_city</th>
-        <th>arrival_airport</th>
-        <th>arrival_airport_name</th>
-        <th>arrival_city</th>
-        <th>status</th>
-        <th>aircraft_code</th>
+        <th>Flight ID</th>
+        <th>Flight №</th>
+        <th>Scheduled departure</th>
+        <th>Scheduled departure local</th>
+        <th>Scheduled arrival</th>
+        <th>Scheduled arrival local</th>
+        <th>Scheduled duration</th>
+        <th>Departure airport</th>
+        <th>Departure airport name</th>
+        <th>Departure city</th>
+        <th>Arrival airport</th>
+        <th>Arrival airport name</th>
+        <th>Arrival city</th>
+        <th>Status</th>
+        <th>Aircraft code</th>
+        <th>Actual departure</th>
+        <th>Actual departure local</th>
+        <th>Actual arrival</th>
+        <th>Actual arrival local</th>
+        <th>Actual duration</th>
 
     </tr>
 
-    <c:forEach items="${requestScope.searchFlights}" var="flight">
+    <c:forEach items="${requestScope.flights}" var="item">
         <tr>
-            <td>${flight.flight_id}</td>
-            <td>${flight.flight_no}</td>
-            <td>${flight.scheduled_departure}</td>
-            <td>${flight.scheduled_departure_local}</td>
-            <td>${flight.scheduled_arrival}</td>
-            <td>${flight.scheduled_arrival_local}</td>
-            <td>${flight.scheduled_duration}</td>
-            <td>${flight.departure_airport}</td>
-            <td>${flight.departure_airport_name}</td>
-            <td>${flight.departure_city}</td>
-            <td>${flight.arrival_airport}</td>
-            <td>${flight.arrival_airport_name}</td>
-            <td>${flight.arrival_city}</td>
-            <td>${flight.status}</td>
-            <td>${flight.aircraft_code}</td>
+            <td>${item.flightId}</td>
+            <td>${item.flightNo}</td>
+            <td>${item.scheduledDeparture}</td>
+            <td>${item.scheduledDepartureLocal}</td>
+            <td>${item.scheduledArrival}</td>
+            <td>${item.scheduledArrivalLocal}</td>
+            <td>${item.scheduledDuration}</td>
+            <td>${item.departureAirport}</td>
+            <td>${item.departureAirportName}</td>
+            <td>${item.departureCity}</td>
+            <td>${item.arrivalAirport}</td>
+            <td>${item.arrivalAirportName}</td>
+            <td>${item.arrivalCity}</td>
+            <td>${item.status}</td>
+            <td>${item.aircraftCode}</td>
+            <td>${item.actualDeparture}</td>
+            <td>${item.actualDepartureLocal}</td>
+            <td>${item.actualArrival}</td>
+            <td>${item.actualArrivalLocal}</td>
+            <td>${item.actualDuration}</td>
 
         </tr>
     </c:forEach>

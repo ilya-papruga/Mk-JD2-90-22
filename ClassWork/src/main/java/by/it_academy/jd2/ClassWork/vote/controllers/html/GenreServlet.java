@@ -1,6 +1,6 @@
-package by.it_academy.jd2.ClassWork.vote.servlets;
+package by.it_academy.jd2.ClassWork.vote.controllers.html;
 
-import by.it_academy.jd2.ClassWork.vote.service.ArtistsService;
+import by.it_academy.jd2.ClassWork.vote.service.GenreService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,13 +11,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet (name = "ArtistsServlet", urlPatterns = "/vote/artist")
-public class ArtistsServlet extends HttpServlet {
+@WebServlet (name = "GenresServlet", urlPatterns = "/html/vote/genre")
+public class GenreServlet extends HttpServlet {
 
-    private ArtistsService service;
+    private GenreService service;
 
-    public ArtistsServlet() {
-        this.service = ArtistsService.getInstance();
+    public GenreServlet() {
+        this.service = GenreService.getInstance();
     }
 
     @Override
@@ -27,11 +27,11 @@ public class ArtistsServlet extends HttpServlet {
         resp.setContentType("text/html; charset=utf-8");
         PrintWriter writer = resp.getWriter();
 
-        List<String> artists = service.getAll();
+        List<String> genres = service.getAll();
 
         int index = 1;
-        for (String artist : artists) {
-            writer.write("<p>" + index++ + " - " + artist + "</p></br>");
+        for (String genre : genres) {
+            writer.write("<p>" + index++ + " - " + genre + "</p></br>");
         }
     }
 
@@ -39,7 +39,7 @@ public class ArtistsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
-        service.add(req.getParameter("artist"));
+        service.add(req.getParameter("genre"));
 
 
     }

@@ -18,7 +18,6 @@ pageEncoding="UTF-8"%>
 <h1 align="center"> Список аэропортов </h1>
 
 
-<!-- простой вариант <table  border="1" cellspacing="0" cellpadding="2"> -->
 <table class="table table-striped">
     <tr>
         <th>Код Аэропорта</th>
@@ -28,10 +27,10 @@ pageEncoding="UTF-8"%>
         <th>Часовой Пояс</th>
     </tr>
 
-    <c:forEach items="${requestScope.allAirports}" var="airport">
+    <c:forEach items="${requestScope.airports}" var="airport">
         <tr>
-            <td>${airport.airport_code}</td>
-            <td>${airport.airport_name}</td>
+            <td>${airport.code}</td>
+            <td>${airport.name}</td>
             <td>${airport.city}</td>
             <td>${airport.coordinates}</td>
             <td>${airport.timezone}</td>

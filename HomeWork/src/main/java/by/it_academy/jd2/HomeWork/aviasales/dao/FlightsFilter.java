@@ -1,4 +1,4 @@
-package by.it_academy.jd2.ClassWork.aviasales.dao;
+package by.it_academy.jd2.HomeWork.aviasales.dao;
 
 import java.time.LocalDateTime;
 
@@ -78,6 +78,8 @@ public class FlightsFilter {
 
 
     }
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package by.it_academy.jd2.ClassWork.vote.servlets;
+package by.it_academy.jd2.ClassWork.vote.controllers.html;
 
 
 import by.it_academy.jd2.ClassWork.vote.core.TopDto;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "TopArtistsServlet", urlPatterns = "/top/artist")
+@WebServlet(name = "TopArtistsServlet", urlPatterns = "/html/top/artist")
 public class TopArtistsServlet extends HttpServlet {
 
     private final VoteService voteService;

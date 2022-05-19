@@ -1,11 +1,10 @@
-package by.it_academy.jd2.ClassWork.aviasales.servlets;
+package by.it_academy.jd2.HomeWork.aviasales.controllers.html;
 
 
-import by.it_academy.jd2.ClassWork.aviasales.dao.FlightsFilter;
-import by.it_academy.jd2.ClassWork.aviasales.dao.Pageable;
-import by.it_academy.jd2.ClassWork.aviasales.service.AirportsService;
-import by.it_academy.jd2.ClassWork.aviasales.service.FlightsService;
-import by.it_academy.jd2.ClassWork.aviasales.servlets.utils.PaginationUtils;
+import by.it_academy.jd2.HomeWork.aviasales.dao.*;
+import by.it_academy.jd2.HomeWork.aviasales.service.AirportService;
+import by.it_academy.jd2.HomeWork.aviasales.service.FlightsService;
+import by.it_academy.jd2.HomeWork.aviasales.controllers.utils.PaginationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,11 +17,13 @@ import java.io.IOException;
 public class FlightsServlet extends HttpServlet {
 
     private final FlightsService flightsService;
-    private final AirportsService airportsService;
+    private final AirportService airportsService;
+
 
     public FlightsServlet() {
+
         this.flightsService = FlightsService.getInstance();
-        this.airportsService = AirportsService.getInstance();
+        this.airportsService = AirportService.getInstance();
     }
 
     @Override
@@ -65,6 +66,7 @@ public class FlightsServlet extends HttpServlet {
 
         Pageable pageable = Pageable.of(size, page);
 
+
         long totalElements = this.flightsService.count(filter);
 
         req.setAttribute("arrivalAirport", filter.getArrivalAirport());
@@ -78,5 +80,7 @@ public class FlightsServlet extends HttpServlet {
         req.setAttribute("flights", this.flightsService.list(filter, Pageable.of(size, page)));
 
         req.getRequestDispatcher("/jsp/aviasales/flights.jsp").forward(req, resp);
+
     }
+
 }

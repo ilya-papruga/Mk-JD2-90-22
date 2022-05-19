@@ -4,20 +4,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirportDao {
+public class AirportDao implements IAirportDao {
 
+    private static final AirportDao instance = new AirportDao();
+
+    private final static String SELECT_SQL =
+            "SELECT\n" +
+            "    airport_code,\n" +
+            "    airport_name,\n" +
+            "    city,\n" +
+            "    coordinates,\n" +
+            "    timezone\n" +
+            "FROM\n" +
+            "    bookings.airports\n";
 
     public List<Airport> getAll() {
         List<Airport> airports = new ArrayList<>();
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionFactory.getConnection();
 
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(
-                     "SELECT airport_code, airport_name, city, coordinates, timezone\n" +
-                             "\tFROM bookings.airports ORDER BY city\n"
-
-             );
+             ResultSet resultSet = statement.executeQuery(SELECT_SQL + "ORDER BY city")
         ) {
             while (resultSet.next()) {
                 airports.add(map(resultSet));
@@ -32,13 +39,11 @@ public class AirportDao {
     public Airport get(String code) {
 
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionFactory.getConnection();
 
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
-                     "SELECT airport_code, airport_name, city, coordinates, timezone\n" +
-                             "\tFROM bookings.airports\n" +
-                             "WHERE airport_code = '" + code + " ';"
+                     SELECT_SQL + "WHERE airport_code = '" + code + " ';"
 
              );
         ) {
@@ -50,16 +55,6 @@ public class AirportDao {
 
         }
         return null;
-    }
-
-    private Connection getConnection() throws SQLException {
-
-        return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/demo",
-                "postgres",
-                "postgres");
-
-
     }
 
 
@@ -74,4 +69,14 @@ public class AirportDao {
     }
 
 
+    @Override
+    public void close() throws Exception {
+
+        ConnectionFactory.close();
+
+    }
+
+    public static AirportDao getInstance() {
+        return instance;
+    }
 }

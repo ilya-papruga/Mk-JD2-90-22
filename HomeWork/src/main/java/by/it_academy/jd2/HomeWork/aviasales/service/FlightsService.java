@@ -1,6 +1,6 @@
 package by.it_academy.jd2.HomeWork.aviasales.service;
 
-import by.it_academy.jd2.HomeWork.aviasales.dao.Flight;
+import by.it_academy.jd2.HomeWork.aviasales.dao.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +9,18 @@ public class FlightsService {
 
     private static final FlightsService instance = new FlightsService();
 
-    private List<Flight> savedFlight = new ArrayList<>();
+    private final IFlightsDao dao;
 
-    public void save(Flight flight) {
-        savedFlight.add(flight);
+    private FlightsService() {
+        this.dao = FlightsDao.getInstance();
     }
 
-    public Flight getSavedFlight() {
+    public List<Flights> list (FlightsFilter filter, Pageable pageable){
+        return this.dao.list(filter,pageable);
+    }
 
-        return savedFlight.get(0);
+    public long count (FlightsFilter filter){
+        return this.dao.count(filter);
     }
 
     public static FlightsService getInstance() {
