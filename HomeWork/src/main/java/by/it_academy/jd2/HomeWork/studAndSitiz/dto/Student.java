@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.test.dto;
+package by.it_academy.jd2.HomeWork.studAndSitiz.dto;
 
 import java.io.Serializable;
 import java.util.Objects;

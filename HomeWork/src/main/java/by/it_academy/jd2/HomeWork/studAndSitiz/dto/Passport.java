@@ -1,4 +1,7 @@
-package by.it_academy.jd2.HomeWork.test.dto;
+package by.it_academy.jd2.HomeWork.studAndSitiz.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -13,9 +16,11 @@ public class Passport {
     private String id;
     private String idCitizen;
     private String address;
+
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
     private LocalDate createDate;
 
-    public Passport(String id, String idCitizen, String address, LocalDate createDate) {
+    public Passport(@JsonProperty("id")String id,@JsonProperty("id_citizen") String idCitizen, @JsonProperty("address") String address, @JsonProperty("create_date") LocalDate createDate) {
         this.id = id;
         this.idCitizen = idCitizen;
         this.address = address;

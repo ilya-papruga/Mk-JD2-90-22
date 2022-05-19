@@ -1,4 +1,4 @@
-package by.it_academy.jd2.HomeWork.test.dto;
+package by.it_academy.jd2.HomeWork.studAndSitiz.dto;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -11,6 +11,7 @@ import java.util.Objects;
  *
  * 	3. Эквивалентность гражданина определяется по ИД гражданина и паспорту
  */
+
 public class Citizen {
     private String id;
     private Passport passport;
