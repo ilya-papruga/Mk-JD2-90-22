@@ -28,8 +28,8 @@ public class StudentService {
         return this.dao.create(student);
     }
 
-    public void delete(StudentId student) {
-        this.dao.delete(student);
+    public void delete(Long id) {
+        this.dao.delete(id);
     }
 
     public void update(StudentDto student, Long id) {

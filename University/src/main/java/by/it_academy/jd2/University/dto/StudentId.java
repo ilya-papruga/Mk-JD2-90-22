@@ -2,16 +2,16 @@ package by.it_academy.jd2.University.dto;
 
 public class StudentId {
 
-    private int id;
+    private long id;
 
     public StudentId() {
     }
 
-    public StudentId(int id) {
+    public StudentId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 }

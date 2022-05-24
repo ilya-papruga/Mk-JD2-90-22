@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class StudentDto {
 
-    private int id;
+    private long id;
     private String name;
     private int age;
     private double score;
@@ -14,7 +14,7 @@ public class StudentDto {
     public StudentDto() {
     }
 
-    public StudentDto(int id, String name, int age, double score, boolean olympicGamer) {
+    public StudentDto(long id, String name, int age, double score, boolean olympicGamer) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -22,11 +22,11 @@ public class StudentDto {
         this.olympicGamer = olympicGamer;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

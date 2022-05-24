@@ -25,7 +25,7 @@ public interface IStudentDao extends AutoCloseable{
      * Удалить студента
      * @param id id студента
      */
-    void delete(StudentId id);
+    void delete(Long id);
 
 
     /**

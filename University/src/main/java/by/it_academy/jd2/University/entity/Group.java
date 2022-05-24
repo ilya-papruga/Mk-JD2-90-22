@@ -1,18 +1,26 @@
 package by.it_academy.jd2.University.entity;
 
-import java.util.List;
 
 public class Group {
-    private String number;
-    private List<Student> studentList;
 
-    public Group(String number) {
+    private long id;
+    private String number;
+
+
+    public Group() {
+    }
+
+    public Group(long id, String number) {
+        this.id = id;
         this.number = number;
     }
 
-    public Group(String number, List<Student> studentList) {
-        this.number = number;
-        this.studentList = studentList;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNumber() {
@@ -21,13 +29,5 @@ public class Group {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
     }
 }

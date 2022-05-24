@@ -114,12 +114,12 @@ public class StudentDao implements IStudentDao {
 
     }
 
-    public void delete(StudentId id) {
+    public void delete(Long id) {
 
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_SQL);
         ) {
-            statement.setInt(1, id.getId());
+            statement.setLong(1, id);
             {
                 statement.executeUpdate();
             }
@@ -150,7 +150,7 @@ public class StudentDao implements IStudentDao {
 
     private Student map(ResultSet rs) throws SQLException {
         Student student = new Student();
-        student.setId(rs.getInt("id"));
+        student.setId(rs.getLong("id"));
         student.setName(rs.getString("name"));
         student.setAge(rs.getInt("age"));
         student.setScore(rs.getDouble("score"));

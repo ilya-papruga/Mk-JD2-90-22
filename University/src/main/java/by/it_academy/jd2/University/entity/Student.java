@@ -15,17 +15,17 @@ import java.util.Objects;
 public class Student implements Serializable {
     private static final long serialVersionUID = 2L;
 
-    private int id;
+    private long id;
     private String name;
     private int age;
     private double score;
     private boolean olympicGamer;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

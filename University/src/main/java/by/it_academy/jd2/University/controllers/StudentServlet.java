@@ -78,8 +78,23 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StudentId student = mapper.readValue(req.getInputStream(), StudentId.class);
-        studentService.delete(student);
+
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = resp.getWriter();
+
+        String rawId = (req.getParameter("id"));
+
+        if (rawId != null && !rawId.isEmpty()) {
+
+            long id = Long.parseLong(rawId);
+            studentService.delete(id);
+            writer.write("Студент " + id + " успешно удалён");
+        } else {
+
+            writer.write("Введите корректный id студента для удаления");
+
+        }
     }
 
 }
