@@ -4,15 +4,15 @@ import by.it_academy.jd2.University.entity.Student;
 
 import java.util.List;
 
-public class GroupStudCross {
+public class GroupDto {
     private String number;
     private List<Student> studentList;
 
-    public GroupStudCross(String number) {
+    public GroupDto(String number) {
         this.number = number;
     }
 
-    public GroupStudCross(String number, List<Student> studentList) {
+    public GroupDto(String number, List<Student> studentList) {
         this.number = number;
         this.studentList = studentList;
     }

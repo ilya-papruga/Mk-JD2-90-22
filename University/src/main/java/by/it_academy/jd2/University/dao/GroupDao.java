@@ -21,32 +21,32 @@ public class GroupDao implements IGroupDao {
             "    id,\n" +
             "    \"number\"\n" +
             "FROM\n" +
-            "    main.\"group\";\n";
+            "    main.groups;\n";
 
 
     private final static String SELECT_MAX_ID_SQL =
             "SELECT\n" +
                     "    *\n" +
                     "FROM\n" +
-                    "    main.\"group\"\n" +
+                    "    main.groups\n" +
                     "WHERE\n" +
                     "    id = (\n" +
                     "SELECT\n" +
                     "MAX(id)\n" +
                     "FROM\n" +
-                    "    main.\"group\");";
+                    "    main.groups);";
 
     private final static String INSERT_SQL =
-            "INSERT INTO main.\"group\" (\"number\")\n" +
+            "INSERT INTO main.groups (\"number\")\n" +
             "    VALUES (?);";
 
     private static final String DELETE_SQL =
-            "DELETE FROM main.\"group\"\n" +
+            "DELETE FROM main.groups\n" +
             "WHERE id = ?;";
 
     private static final String UPDATE_SQL =
             "UPDATE\n" +
-            "    main.\"group\"\n" +
+            "    main.groups\n" +
             "SET\n" +
             "    \"number\" = ?\n" +
             "WHERE\n" +
