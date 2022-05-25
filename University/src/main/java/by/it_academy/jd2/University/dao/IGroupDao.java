@@ -9,7 +9,6 @@ public interface IGroupDao extends AutoCloseable{
 
     /**
      * Получить все группы
-     * @return
      */
     List<Group> readAll();
 

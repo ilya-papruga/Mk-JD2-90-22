@@ -11,20 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrossDao implements AutoCloseable {
+public class CrossDao implements ICrossDao {
 
     private final static CrossDao instance = new CrossDao();
 
-    private final static String SELECT_JOIN_SQL = "\n" +
+    private final static String SELECT_SQL =
             "SELECT\n" +
-            "    cross_groups_students.group_id,\n" +
-            "    groups.\"number\",\n" +
-            "    cross_groups_students.student_id,\n" +
-            "    students.name\n" +
+            "    group_id,\n" +
+            "    student_id\n" +
             "FROM\n" +
-            "    main.students\n" +
-            "    JOIN main.cross_groups_students ON students.id = student_id\n" +
-            "    JOIN main.groups ON groups.id = group_id;";
+            "    main.cross_groups_students;";
 
     private final static String INSERT_SQL =
             "INSERT INTO main.cross_groups_students" +
@@ -34,7 +30,7 @@ public class CrossDao implements AutoCloseable {
     private final static String DELETE_SQL =
             "DELETE FROM main.cross_groups_students\n" +
             "WHERE group_id = ?\n" +
-            "    AND student_id = ?;";
+            "AND student_id = ?;";
 
 
 
@@ -42,11 +38,11 @@ public class CrossDao implements AutoCloseable {
 
         List<CrossDtoGet> crossList = new ArrayList<>();
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_JOIN_SQL);
+             PreparedStatement statement = connection.prepareStatement(SELECT_SQL);
         ) {
             try (ResultSet resultSet = statement.executeQuery();) {
                 while (resultSet.next()) {
-                    crossList.add(map(resultSet));
+                    crossList.add(mapCross(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -92,12 +88,10 @@ public class CrossDao implements AutoCloseable {
           }
     }
 
-    private CrossDtoGet map(ResultSet rs) throws SQLException {
+    private CrossDtoGet mapCross(ResultSet rs) throws SQLException {
         CrossDtoGet cross = new CrossDtoGet();
         cross.setGroupId(rs.getLong("group_id"));
-        cross.setNumber(rs.getString("number"));
         cross.setStudentId(rs.getLong("student_id"));
-        cross.setName(rs.getString("name"));
         return cross;
     }
 

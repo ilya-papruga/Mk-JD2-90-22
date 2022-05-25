@@ -1,4 +1,4 @@
-package by.it_academy.jd2.University.controllers;
+package by.it_academy.jd2.University.controllers.api;
 
 
 import by.it_academy.jd2.University.dto.CrossDto;
@@ -40,7 +40,6 @@ public class CrossServlet extends HttpServlet {
         String json = mapper.writeValueAsString(crossService.readAll());
 
         writer.write(json);
-
     }
 
     @Override

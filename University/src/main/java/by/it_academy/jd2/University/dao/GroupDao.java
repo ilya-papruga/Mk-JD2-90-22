@@ -27,14 +27,14 @@ public class GroupDao implements IGroupDao {
     private final static String SELECT_MAX_ID_SQL =
             "SELECT\n" +
                     "    *\n" +
-                    "FROM\n" +
+            "FROM\n" +
                     "    main.groups\n" +
-                    "WHERE\n" +
+            "WHERE\n" +
                     "    id = (\n" +
-                    "SELECT\n" +
-                    "MAX(id)\n" +
-                    "FROM\n" +
-                    "    main.groups);";
+            "SELECT\n" +
+            "MAX(id)\n" +
+            "FROM\n" +
+             "    main.groups);";
 
     private final static String INSERT_SQL =
             "INSERT INTO main.groups (\"number\")\n" +

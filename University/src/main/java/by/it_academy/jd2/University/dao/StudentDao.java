@@ -18,7 +18,7 @@ public class StudentDao implements IStudentDao {
     private final static StudentDao instance = new StudentDao();
 
     private final static String SELECT_SQL =
-            "SELECT\n" +
+                    "SELECT\n" +
                     "    id,\n" +
                     "    name,\n" +
                     "    age,\n" +

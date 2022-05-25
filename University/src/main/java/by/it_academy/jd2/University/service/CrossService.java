@@ -3,6 +3,7 @@ package by.it_academy.jd2.University.service;
 import by.it_academy.jd2.University.dao.CrossDao;
 import by.it_academy.jd2.University.dto.CrossDtoGet;
 import by.it_academy.jd2.University.dto.CrossDto;
+import by.it_academy.jd2.University.dto.JournalDto;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class CrossService {
     public void delete(CrossDto cross){
         this.dao.delete(cross);
     }
+
 
     public static CrossService getInstance() {
         return instance;

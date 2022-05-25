@@ -1,4 +1,4 @@
-package by.it_academy.jd2.University.controllers;
+package by.it_academy.jd2.University.controllers.api;
 
 import by.it_academy.jd2.University.dto.GroupNoId;
 import by.it_academy.jd2.University.service.GroupService;
