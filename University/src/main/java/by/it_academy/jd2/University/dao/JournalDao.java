@@ -1,6 +1,8 @@
 package by.it_academy.jd2.University.dao;
 
+import by.it_academy.jd2.University.dto.GroupDto;
 import by.it_academy.jd2.University.dto.JournalDto;
+import by.it_academy.jd2.University.entity.Student;
 import by.it_academy.jd2.University.service.ConnectionFactory;
 
 import java.sql.Connection;
@@ -29,7 +31,7 @@ public class JournalDao implements IJournalDao {
 
     private final static String SELECT_JOIN_SQL_ONE =
             "SELECT\n" +
-            "    groups.\"number\",\n" +
+            "    students.id," +
             "    name,\n" +
             "    age,\n" +
             "    score,\n" +
@@ -46,11 +48,11 @@ public class JournalDao implements IJournalDao {
 
         List<JournalDto> journalList = new ArrayList<>();
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_JOIN_SQL_ALL);
+             PreparedStatement statement = connection.prepareStatement(SELECT_JOIN_SQL_ALL)
         ) {
-            try (ResultSet resultSet = statement.executeQuery();) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    journalList.add(mapJournal(resultSet));
+                    journalList.add(map(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -59,26 +61,29 @@ public class JournalDao implements IJournalDao {
         return journalList;
     }
 
-    public List<JournalDto> readJournal(String groupNumber) {
+    public GroupDto readJournal(String groupNumber) {
 
-        List<JournalDto> journalList = new ArrayList<>();
+         GroupDto group = new GroupDto(groupNumber);
+         List<Student> students = new ArrayList<>();
+
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_JOIN_SQL_ONE);
+             PreparedStatement statement = connection.prepareStatement(SELECT_JOIN_SQL_ONE)
         ) {
             statement.setString(1, groupNumber);
-            try (ResultSet resultSet = statement.executeQuery();) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    journalList.add(mapJournal(resultSet));
+                    students.add(mapJournal(resultSet));
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return journalList;
+
+        group.setStudentList(students);
+        return group;
     }
 
-
-    private JournalDto mapJournal(ResultSet rs) throws SQLException {
+    private JournalDto map(ResultSet rs) throws SQLException {
         JournalDto journal = new JournalDto();
         journal.setNumber(rs.getString("number"));
         journal.setName(rs.getString("name"));
@@ -86,6 +91,17 @@ public class JournalDao implements IJournalDao {
         journal.setScore(rs.getDouble("score"));
         journal.setOlympicGamer(rs.getBoolean("olympic_gamer"));
         return journal;
+    }
+
+
+    private Student mapJournal(ResultSet rs) throws SQLException {
+        Student student = new Student();
+        student.setId(rs.getLong("id"));
+        student.setName(rs.getString("name"));
+        student.setAge(rs.getInt("age"));
+        student.setScore(rs.getDouble("score"));
+        student.setOlympicGamer(rs.getBoolean("olympic_gamer"));
+        return student;
     }
 
 

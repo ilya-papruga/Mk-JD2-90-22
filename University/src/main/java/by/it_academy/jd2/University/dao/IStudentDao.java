@@ -1,7 +1,6 @@
 package by.it_academy.jd2.University.dao;
 
 import by.it_academy.jd2.University.dto.StudentDto;
-import by.it_academy.jd2.University.dto.StudentId;
 import by.it_academy.jd2.University.dto.StudentNoId;
 import by.it_academy.jd2.University.entity.Student;
 
@@ -11,7 +10,6 @@ public interface IStudentDao extends AutoCloseable{
 
     /**
      * Получить всех студентов
-     * @return
      */
     List<Student> readAll();
 

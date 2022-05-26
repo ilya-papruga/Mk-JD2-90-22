@@ -1,7 +1,6 @@
 package by.it_academy.jd2.University.dao;
 
 import by.it_academy.jd2.University.dto.StudentDto;
-import by.it_academy.jd2.University.dto.StudentId;
 import by.it_academy.jd2.University.dto.StudentNoId;
 import by.it_academy.jd2.University.entity.Student;
 import by.it_academy.jd2.University.service.ConnectionFactory;
@@ -59,10 +58,10 @@ public class StudentDao implements IStudentDao {
 
         List<Student> studentList = new ArrayList<>();
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_SQL);
+             PreparedStatement statement = connection.prepareStatement(SELECT_SQL)
         ) {
 
-            try (ResultSet resultSet = statement.executeQuery();) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
 
                     studentList.add(map(resultSet));
@@ -79,7 +78,7 @@ public class StudentDao implements IStudentDao {
     public String create(StudentNoId student) {
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_SQL);
+             PreparedStatement statement = connection.prepareStatement(INSERT_SQL)
         ) {
             statement.setString(1, student.getName());
             statement.setInt(2, student.getAge());
@@ -95,10 +94,10 @@ public class StudentDao implements IStudentDao {
         String idInfo = "Добавлен студент с id: ";
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_MAX_ID_SQL);
+             PreparedStatement statement = connection.prepareStatement(SELECT_MAX_ID_SQL)
         ) {
 
-            try (ResultSet resultSet = statement.executeQuery();) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
 
                     idInfo = idInfo + resultSet.getInt("id");
@@ -117,7 +116,7 @@ public class StudentDao implements IStudentDao {
     public void delete(Long id) {
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_SQL);
+             PreparedStatement statement = connection.prepareStatement(DELETE_SQL)
         ) {
             statement.setLong(1, id);
             {
@@ -131,7 +130,7 @@ public class StudentDao implements IStudentDao {
     public void update(StudentDto student, Long id) {
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_SQL);
+             PreparedStatement statement = connection.prepareStatement(UPDATE_SQL)
         ) {
             statement.setString(1, student.getName());
             statement.setInt(2, student.getAge());

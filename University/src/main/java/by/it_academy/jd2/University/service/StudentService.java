@@ -2,7 +2,6 @@ package by.it_academy.jd2.University.service;
 
 import by.it_academy.jd2.University.dao.StudentDao;
 import by.it_academy.jd2.University.dto.StudentDto;
-import by.it_academy.jd2.University.dto.StudentId;
 import by.it_academy.jd2.University.dto.StudentNoId;
 import by.it_academy.jd2.University.entity.Student;
 

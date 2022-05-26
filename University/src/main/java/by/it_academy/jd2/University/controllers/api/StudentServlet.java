@@ -1,7 +1,6 @@
 package by.it_academy.jd2.University.controllers.api;
 
 import by.it_academy.jd2.University.dto.StudentDto;
-import by.it_academy.jd2.University.dto.StudentId;
 import by.it_academy.jd2.University.dto.StudentNoId;
 import by.it_academy.jd2.University.service.StudentService;
 import com.fasterxml.jackson.databind.ObjectMapper;

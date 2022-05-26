@@ -35,13 +35,13 @@ public class JournalServlet extends HttpServlet {
 
         String number = req.getParameter("number");
 
-         if (number != null && !number.isEmpty()) {
-             String json = mapper.writeValueAsString(journalService.readJournal(number));
-             writer.write(json);
-         }
+        String json;
+        if (number != null && !number.isEmpty()) {
+            json = mapper.writeValueAsString(journalService.readJournal(number));
+        }
          else {
-             String json = mapper.writeValueAsString(journalService.readAll());
-             writer.write(json);
-         }
+            json = mapper.writeValueAsString(journalService.readAll());
+        }
+        writer.write(json);
     }
 }

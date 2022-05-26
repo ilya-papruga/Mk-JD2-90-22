@@ -1,6 +1,7 @@
 package by.it_academy.jd2.University.service;
 
 import by.it_academy.jd2.University.dao.JournalDao;
+import by.it_academy.jd2.University.dto.GroupDto;
 import by.it_academy.jd2.University.dto.JournalDto;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class JournalService {
         this.dao = JournalDao.getInstance();
     }
 
-    public List<JournalDto> readJournal(String groupNumber){
+    public GroupDto readJournal(String groupNumber){
         return this.dao.readJournal(groupNumber);
     }
 

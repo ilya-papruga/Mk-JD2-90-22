@@ -1,9 +1,8 @@
 package by.it_academy.jd2.University.service;
 
 import by.it_academy.jd2.University.dao.CrossDao;
-import by.it_academy.jd2.University.dto.CrossDtoGet;
 import by.it_academy.jd2.University.dto.CrossDto;
-import by.it_academy.jd2.University.dto.JournalDto;
+import by.it_academy.jd2.University.dto.CrossDtoGet;
 
 import java.util.List;
 

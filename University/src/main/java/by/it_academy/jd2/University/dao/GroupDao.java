@@ -57,10 +57,10 @@ public class GroupDao implements IGroupDao {
 
         List<Group> groupList = new ArrayList<>();
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_SQL);
+             PreparedStatement statement = connection.prepareStatement(SELECT_SQL)
         ) {
 
-            try (ResultSet resultSet = statement.executeQuery();) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
 
                     groupList.add(map(resultSet));
@@ -78,7 +78,7 @@ public class GroupDao implements IGroupDao {
     public String create(GroupNoId group) {
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_SQL);
+             PreparedStatement statement = connection.prepareStatement(INSERT_SQL)
         ) {
             statement.setString(1, group.getNumber());
             {
@@ -91,10 +91,10 @@ public class GroupDao implements IGroupDao {
         String idInfo = "Добавлена группа с id: ";
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_MAX_ID_SQL);
+             PreparedStatement statement = connection.prepareStatement(SELECT_MAX_ID_SQL)
         ) {
 
-            try (ResultSet resultSet = statement.executeQuery();) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
 
                     idInfo = idInfo + resultSet.getInt("id");
@@ -113,7 +113,7 @@ public class GroupDao implements IGroupDao {
     public void update(GroupNoId group, Long id) {
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_SQL);
+             PreparedStatement statement = connection.prepareStatement(UPDATE_SQL)
         ) {
             statement.setString(1, group.getNumber());
             statement.setLong(2, id);
@@ -129,7 +129,7 @@ public class GroupDao implements IGroupDao {
     public void delete(Long id) {
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_SQL);
+             PreparedStatement statement = connection.prepareStatement(DELETE_SQL)
         ) {
             statement.setLong(1, id);
             {
