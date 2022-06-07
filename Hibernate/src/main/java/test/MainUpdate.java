@@ -1,11 +1,13 @@
-import dao.entity.Event;
+package test;
+
+import test.dao.entity.Event;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class MainUpdate {
     public static void main(String[] args) {
-        EntityManagerFactory sessionFactory = Persistence.createEntityManagerFactory("dao.entity");
+        EntityManagerFactory sessionFactory = Persistence.createEntityManagerFactory("test.dao.entity");
 
         EntityManager entityManager = sessionFactory.createEntityManager();
 

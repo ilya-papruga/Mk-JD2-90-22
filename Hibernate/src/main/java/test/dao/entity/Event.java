@@ -1,7 +1,6 @@
-package dao.entity;
+package test.dao.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 
