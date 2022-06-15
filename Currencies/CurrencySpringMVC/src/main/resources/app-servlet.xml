@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:controller-context.xml" />
+
+
+    <bean id="sJacksonService" class="service.JacksonService"/>
+
+    <bean id="sMapperService" class="service.MapperService"/>
+
+    <bean id="sManagerFactory" class="service.ManagerFactory"/>
+
+    <bean id="sCurrencyDao" class="core.dao.CurrencyDao" >
+        <constructor-arg name="managerFactory" ref="sManagerFactory" />
+    </bean>
+
+    <bean id="sCurrencyService" class="service.CurrencyService">
+        <constructor-arg name="currencyDao" ref="sCurrencyDao"/>
+    </bean>
+
+</beans>
