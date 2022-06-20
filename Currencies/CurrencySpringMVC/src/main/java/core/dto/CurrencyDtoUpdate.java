@@ -1,15 +1,15 @@
 package core.dto;
 
-public class CurrencyDtoCU {
+public class CurrencyDtoUpdate {
 
     private String name;
     private String description;
     private String code;
 
-    public CurrencyDtoCU() {
+    public CurrencyDtoUpdate() {
     }
 
-    public CurrencyDtoCU(String name, String description, String code) {
+    public CurrencyDtoUpdate(String name, String description, String code) {
         this.name = name;
         this.description = description;
         this.code = code;

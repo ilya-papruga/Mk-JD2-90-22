@@ -14,6 +14,7 @@ public class CurrencyController {
     private final ICurrencyService currencyService;
 
     public CurrencyController(ICurrencyService currencyService) {
+
         this.currencyService = currencyService;
     }
 
@@ -31,6 +32,7 @@ public class CurrencyController {
     @PostMapping
 //    @RequestMapping(method = RequestMethod.POST) //аналог @PostMapping
     public Currency create(@RequestBody CurrencyCreate dto) {
+
         return this.currencyService.add(dto);
     }
 }

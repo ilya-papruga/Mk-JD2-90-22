@@ -1,23 +1,32 @@
 package core.dto;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import controllers.utils.json.LocalDateTimeDeserializer;
+import controllers.utils.json.LocalDateTimeSerializer;
+
 import java.time.LocalDateTime;
 
-public class CurrencyDtoR {
+public class CurrencyDtoRead {
 
 
     private Long id;
-
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dtCreate;
+
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dtUpdate;
     private String name;
     private String description;
     private String code;
 
-    public CurrencyDtoR() {
+    public CurrencyDtoRead() {
     }
 
-    public CurrencyDtoR(Long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, String description, String code) {
+    public CurrencyDtoRead(Long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, String description, String code) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
@@ -25,7 +34,6 @@ public class CurrencyDtoR {
         this.description = description;
         this.code = code;
     }
-
 
 
     public Long getId() {
@@ -75,8 +83,6 @@ public class CurrencyDtoR {
     public void setCode(String code) {
         this.code = code;
     }
-
-
 
 
 }

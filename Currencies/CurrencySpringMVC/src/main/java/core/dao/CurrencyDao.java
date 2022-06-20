@@ -3,11 +3,14 @@ package core.dao;
 import core.entity.Currency;
 import core.dao.api.ICurrencyDao;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 import service.api.IManagerFactory;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public class CurrencyDao implements ICurrencyDao {
 
     private final IManagerFactory managerFactory;
@@ -16,16 +19,18 @@ public class CurrencyDao implements ICurrencyDao {
         this.managerFactory = managerFactory;
     }
 
-    public void create(Currency currency){
+    public Currency create(Currency currency){
         EntityManager entityManager = managerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
         entityManager.persist(currency);
         entityManager.getTransaction().commit();
         entityManager.close();
+
+        return currency;
     }
 
-    public Currency read (long id){
+    public Currency read (Long id){
 
         EntityManager entityManager = managerFactory.createEntityManager();
 
@@ -46,30 +51,41 @@ public class CurrencyDao implements ICurrencyDao {
     }
 
 
-    public void update(long id, Currency currencyUpdater){
+    public void update(Long id, Currency currencyUpdater, LocalDateTime dtUpdate){
 
         EntityManager entityManager = managerFactory.createEntityManager();
 
+        entityManager.getTransaction().begin();
+
         Currency currency = entityManager.find(Currency.class, id);
 
-        currency.setDtUpdate(currencyUpdater.getDtUpdate());
+        if(!currency.getDtUpdate().equals(dtUpdate)){
+            throw new IllegalArgumentException("Валюта уже была обновлена кем-то ранее");
+        }
+
         currency.setName(currencyUpdater.getName());
         currency.setDescription(currencyUpdater.getDescription());
         currency.setCode(currencyUpdater.getCode());
 
-        entityManager.getTransaction().begin();
         entityManager.persist(currency);
+
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
-    public void delete(long id){
+    public void delete(Long id, LocalDateTime dtUpdate){
 
         EntityManager entityManager = managerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
 
         Currency currency = entityManager.find(Currency.class, id);
-        entityManager.getTransaction().begin();
+
+        if(!currency.getDtUpdate().equals(dtUpdate)){
+            throw new IllegalArgumentException("Валюта уже была удалена или обновлена кем-то ранее");
+        }
+
         entityManager.remove(currency);
+
         entityManager.getTransaction().commit();
         entityManager.close();
 

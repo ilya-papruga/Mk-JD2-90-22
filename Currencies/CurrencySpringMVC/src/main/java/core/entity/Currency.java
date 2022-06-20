@@ -1,6 +1,11 @@
 package core.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import controllers.utils.json.LocalDateTimeDeserializer;
+import controllers.utils.json.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,11 +20,17 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //  @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     @Column(name = "date_create")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dtCreate;
 
-    @Version
+    //  @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     @Column(name = "date_update")
+    @Version
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dtUpdate;
     private String name;
     private String description;

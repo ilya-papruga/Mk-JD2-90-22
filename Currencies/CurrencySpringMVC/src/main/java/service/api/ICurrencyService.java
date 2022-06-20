@@ -1,22 +1,23 @@
 package service.api;
 
-import core.dto.CurrencyDtoCU;
+import core.dto.CurrencyDtoCreate;
+import core.dto.CurrencyDtoRead;
+import core.dto.CurrencyDtoUpdate;
 import core.entity.Currency;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ICurrencyService {
 
-    void create(CurrencyDtoCU dto);
+    Currency create(CurrencyDtoCreate dto);
 
-    Currency read (long id);
+    Currency read (Long id);
 
     List<Currency> readAll();
 
-    void update(long id, CurrencyDtoCU dto);
+    Currency update(Long id, CurrencyDtoUpdate dto, LocalDateTime dtUpdate);
 
-    void delete (long id);
-
-    Currency map (CurrencyDtoCU dto);
+    void delete (Long id, LocalDateTime dtUpdate);
 
 }

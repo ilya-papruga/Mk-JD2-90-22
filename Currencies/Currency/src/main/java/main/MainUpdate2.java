@@ -15,13 +15,13 @@ public class MainUpdate2 {
 
         Currency currency = entityManager.find(Currency.class, 1);
 
-        currency.setDtUpdate(LocalDateTime.now());
-        currency.setName("Ещё новые данные");
+
+        currency.setName("старые данные");
 
         entityManager.getTransaction().begin();
         entityManager.persist(currency);
 
-        // TimeUnit.SECONDS.sleep(30);
+        // TimeUnit.SECONDS.sleep(60);
 
         entityManager.getTransaction().commit();
         entityManager.close();

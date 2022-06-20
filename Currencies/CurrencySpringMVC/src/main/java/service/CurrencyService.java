@@ -1,26 +1,42 @@
 package service;
 
-import core.dao.CurrencyDao;
 import core.dao.api.ICurrencyDao;
+import core.dto.CurrencyDtoRead;
+import core.dto.CurrencyDtoUpdate;
 import core.entity.Currency;
-import core.dto.CurrencyDtoCU;
+import core.dto.CurrencyDtoCreate;
+import org.springframework.stereotype.Service;
 import service.api.ICurrencyService;
+import service.api.IMapperService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class CurrencyService implements ICurrencyService {
 
-    
     private final ICurrencyDao currencyDao;
+    private final IMapperService mapperService;
     
-    public CurrencyService(ICurrencyDao currencyDao) {this.currencyDao = currencyDao;}
-
-    public void create(CurrencyDtoCU dto){
-        this.currencyDao.create(map(dto));
+    public CurrencyService(ICurrencyDao currencyDao, MapperService mapperService) {
+        this.currencyDao = currencyDao;
+        this.mapperService = mapperService;
     }
 
-    public Currency read (long id){
+    public Currency create(CurrencyDtoCreate dto){
+
+        if (dto.getName() == null || dto.getCode() == null || dto.getDescription() == null) {
+            throw new IllegalArgumentException("Для создания необходимо заполнить все поля");
+        }
+
+      return this.currencyDao.create(this.mapperService.mapCreate(dto));
+    }
+
+    public Currency read (Long id){
+
+        if (id == null || id <= 0){
+            throw new IllegalArgumentException("Поле id не может быть пустым");
+        }
 
         return this.currencyDao.read(id);
 
@@ -28,32 +44,26 @@ public class CurrencyService implements ICurrencyService {
 
     public List<Currency> readAll()
     {
-
         return this.currencyDao.readAll();
     }
 
-    public void update(long id, CurrencyDtoCU dto){
-        this.currencyDao.update(id, map(dto));
+    public Currency update(Long id, CurrencyDtoUpdate dto, LocalDateTime dtUpdate){
+
+        if (id == null || id <= 0){
+            throw new IllegalArgumentException("Поле id не может быть пустым");
+        }
+
+        this.currencyDao.update(id, mapperService.mapUpdate(dto), dtUpdate);
+        return this.read(id);
+
     }
 
-    public void delete (long id){
+    public void delete (Long id, LocalDateTime dtUpdate){
 
-        this.currencyDao.delete(id);
-
+        if (id == null || id <= 0){
+            throw new IllegalArgumentException("Поле id не может быть пустым");
+        }
+        this.currencyDao.delete(id, dtUpdate);
     }
 
-
-    public Currency map (CurrencyDtoCU dto){
-
-        Currency currency = new Currency();
-
-        currency.setDtCreate(LocalDateTime.now());
-        currency.setDtUpdate(LocalDateTime.now());
-        currency.setName(dto.getName());
-        currency.setDescription(dto.getDescription());
-        currency.setCode(dto.getCode());
-        return currency;
-    }
-    
-    
 }

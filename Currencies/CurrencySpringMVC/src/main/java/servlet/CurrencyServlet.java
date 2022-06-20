@@ -1,4 +1,4 @@
-package controllers;
+package servlet;
 
 /*
 @WebServlet(name = "CurrencyServlet", urlPatterns = "/currency")
@@ -24,6 +24,7 @@ public class CurrencyServlet extends HttpServlet {
         resp.setContentType("application/json; charset=utf-8");
         PrintWriter writer = resp.getWriter();
         String json;
+
         List<CurrencyDtoRead> currencyDtoRead = new ArrayList<>();
 
         String rawId = req.getParameter("id");
@@ -108,4 +109,4 @@ public class CurrencyServlet extends HttpServlet {
         return currencyDtoRead;
     }
 }
-  */
+ */
