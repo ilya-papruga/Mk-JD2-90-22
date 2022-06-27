@@ -4,6 +4,8 @@ import core.dto.CurrencyDtoCreate;
 import core.dto.CurrencyDtoRead;
 import core.dto.CurrencyDtoUpdate;
 import core.entity.Currency;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.api.ICurrencyService;
 import service.api.IMapperService;
@@ -53,9 +55,9 @@ public class CurrencyController {
     }
 
     @PostMapping
-    public CurrencyDtoRead create (@RequestBody CurrencyDtoCreate dto)
+    public ResponseEntity<CurrencyDtoRead> create (@RequestBody CurrencyDtoCreate dto)
     {
-        return mapperService.mapRead(this.currencyService.create(dto));
+        return new ResponseEntity<>(mapperService.mapRead(this.currencyService.create(dto)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/version/{version}")

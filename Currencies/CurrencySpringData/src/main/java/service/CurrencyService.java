@@ -71,8 +71,12 @@ public class CurrencyService implements ICurrencyService {
             throw new IllegalArgumentException("Валюта уже была обновлена кем-то ранее");
         }
 
+        currency.setCode(dto.getCode());
+        currency.setDescription(dto.getDescription());
+        currency.setName(dto.getName());
 
-        this.currencyDao.save(mapperService.mapUpdate(dto));
+        this.currencyDao.save(currency);
+
         return this.read(id);
 
     }
